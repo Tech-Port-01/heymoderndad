@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hey Modern Dad – Real Talk. Real Parenting. Real Dad Life.</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Syne (display) + Plus Jakarta Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    /* ── Tailwind config: custom tokens ── */
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            body:    ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            cream:  '#faf7f2',
+            navy:   '#0f1f3d',
+            blue:   { DEFAULT: '#2563eb', light: '#dbeafe', mid: '#3b82f6' },
+            amber:  { DEFAULT: '#f59e0b', light: '#fef3c7' },
+            slate:  { soft: '#64748b', dark: '#1e293b' },
+          },
+          boxShadow: {
+            card: '0 4px 24px rgba(15,31,61,0.08)',
+            lift: '0 12px 40px rgba(15,31,61,0.15)',
+          },
+          backgroundImage: {
+            'hero-grain': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E\")",
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    /* ── Base resets ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #faf7f2;
+      color: #1e293b;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+
+    /* ── Scroll-reveal animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Navbar glass effect ── */
+    .navbar-glass {
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(15, 31, 61, 0.08);
+    }
+
+    /* ── Hero gradient mesh ── */
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(37, 99, 235, 0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 50% at 80% 70%, rgba(245, 158, 11, 0.10) 0%, transparent 60%),
+        #faf7f2;
+    }
+
+    /* ── Animated underline on nav links ── */
+    .nav-link {
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 2px;
+      background: #2563eb;
+      border-radius: 99px;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    /* ── Card hover lift ── */
+    .card-hover {
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(15,31,61,0.14);
+    }
+
+    /* ── Pill badge ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── CTA button pulse ring ── */
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(37,99,235,0.35); }
+      70%  { box-shadow: 0 0 0 12px rgba(37,99,235,0); }
+      100% { box-shadow: 0 0 0 0 rgba(37,99,235,0); }
+    }
+    .btn-pulse { animation: pulse-ring 2.4s ease infinite; }
+
+    /* ── Section accent line ── */
+    .section-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 28px;
+      height: 3px;
+      border-radius: 99px;
+      background: #2563eb;
+    }
+
+    /* ── Video embed ratio ── */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 177.78%; /* 9:16 for TikTok portrait */
+      height: 0;
+      overflow: hidden;
+      border-radius: 16px;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      border-radius: 16px;
+    }
+
+    /* ── Mobile menu slide ── */
+    #mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s ease;
+    }
+    #mobile-menu.open { max-height: 480px; }
+
+    /* ── Grain overlay ── */
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    /* ── Stats counter animation ── */
+    @keyframes count-up { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+    .stat-num { animation: count-up 0.5s cubic-bezier(0.34,1.56,0.64,1) both; }
+
+    /* ── Newsletter input focus ── */
+    .email-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,0.25); }
+
+    /* ── Scrollbar styling ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 99px; }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     STICKY NAVIGATION
+════════════════════════════════════════════ -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 navbar-glass transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-9 h-9 bg-navy rounded-xl flex items-center justify-center text-white text-sm font-display font-800 group-hover:bg-blue transition-colors">
+          HMD
+        </div>
+        <span class="font-display font-700 text-navy text-lg tracking-tight hidden sm:block">Hey Modern Dad</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden md:flex items-center gap-7">
+        <a href="#about"     class="nav-link text-slate-dark text-sm font-medium hover:text-blue transition-colors">About</a>
+        <a href="#videos"    class="nav-link text-slate-dark text-sm font-medium hover:text-blue transition-colors">Videos</a>
+        <a href="#tips"      class="nav-link text-slate-dark text-sm font-medium hover:text-blue transition-colors">Tips</a>
+        <a href="#community" class="nav-link text-slate-dark text-sm font-medium hover:text-blue transition-colors">Community</a>
+        <a href="#merch"     class="nav-link text-slate-dark text-sm font-medium hover:text-blue transition-colors">Shop</a>
+      </div>
+
+      <!-- Desktop CTA -->
+      <a href="#community" class="hidden md:inline-flex items-center gap-2 bg-navy text-cream text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-blue transition-colors duration-200">
+        <i class="fa-brands fa-tiktok text-xs"></i>
+        Follow Along
+      </a>
+
+      <!-- Hamburger (mobile) -->
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-blue-light transition-colors" aria-label="Open menu">
+        <span class="ham-bar block w-6 h-0.5 bg-navy rounded-full transition-all duration-300"></span>
+        <span class="ham-bar block w-6 h-0.5 bg-navy rounded-full transition-all duration-300"></span>
+        <span class="ham-bar block w-4 h-0.5 bg-navy rounded-full transition-all duration-300"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden border-t border-slate-100">
+    <div class="px-5 py-4 flex flex-col gap-1 bg-cream">
+      <a href="#about"     class="mobile-link px-4 py-3 rounded-xl text-slate-dark font-medium hover:bg-blue-light hover:text-blue transition-colors">About</a>
+      <a href="#videos"    class="mobile-link px-4 py-3 rounded-xl text-slate-dark font-medium hover:bg-blue-light hover:text-blue transition-colors">Videos</a>
+      <a href="#tips"      class="mobile-link px-4 py-3 rounded-xl text-slate-dark font-medium hover:bg-blue-light hover:text-blue transition-colors">Tips</a>
+      <a href="#community" class="mobile-link px-4 py-3 rounded-xl text-slate-dark font-medium hover:bg-blue-light hover:text-blue transition-colors">Community</a>
+      <a href="#merch"     class="mobile-link px-4 py-3 rounded-xl text-slate-dark font-medium hover:bg-blue-light hover:text-blue transition-colors">Shop</a>
+      <a href="#community" class="mt-2 text-center bg-navy text-cream font-semibold px-5 py-3 rounded-xl hover:bg-blue transition-colors">Follow Along</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════════════
+     HERO SECTION
+════════════════════════════════════════════ -->
+<section id="hero" class="hero-bg relative min-h-screen flex items-center pt-16 overflow-hidden">
+
+  <!-- Decorative blobs -->
+  <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 -left-16 w-72 h-72 bg-amber/15 rounded-full blur-2xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-20 sm:py-28 grid md:grid-cols-2 gap-12 items-center">
+
+    <!-- Left: copy -->
+    <div>
+      <div class="section-tag">
+        <span class="text-blue text-sm font-semibold tracking-widest uppercase">For Every Modern Dad</span>
+      </div>
+
+      <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl font-800 text-navy leading-[1.05] tracking-tight mb-6">
+        Real Talk.<br/>
+        Real Parenting.<br/>
+        <span class="text-blue">Real Dad Life.</span>
+      </h1>
+
+      <p class="text-slate-soft text-lg sm:text-xl leading-relaxed max-w-lg mb-10">
+        No perfect filters. No judgment. Just one dad sharing the honest, messy, beautiful adventure of raising kids in today's world — humor included.
+      </p>
+
+      <!-- Stats strip -->
+      <div class="flex flex-wrap gap-6 mb-10">
+        <div>
+          <div class="font-display text-2xl font-700 text-navy">500K+</div>
+          <div class="text-slate-soft text-sm">TikTok Followers</div>
+        </div>
+        <div class="w-px bg-slate-200"></div>
+        <div>
+          <div class="font-display text-2xl font-700 text-navy">200+</div>
+          <div class="text-slate-soft text-sm">Videos Made</div>
+        </div>
+        <div class="w-px bg-slate-200"></div>
+        <div>
+          <div class="font-display text-2xl font-700 text-navy">10M+</div>
+          <div class="text-slate-soft text-sm">Video Views</div>
+        </div>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-wrap gap-4">
+        <a href="#videos"
+           class="btn-pulse inline-flex items-center gap-2.5 bg-blue text-white font-semibold px-7 py-4 rounded-2xl hover:bg-navy transition-colors duration-200 shadow-lg text-sm sm:text-base">
+          <i class="fa-solid fa-play text-xs"></i>
+          Watch Videos
+        </a>
+        <a href="#community"
+           class="inline-flex items-center gap-2.5 bg-white text-navy font-semibold px-7 py-4 rounded-2xl hover:bg-amber hover:text-white border border-slate-200 transition-all duration-200 text-sm sm:text-base">
+          <i class="fa-solid fa-users text-xs"></i>
+          Join the Community
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: feature card stack -->
+    <div class="relative flex justify-center">
+
+      <!-- Main card -->
+      <div class="relative z-10 bg-white rounded-3xl shadow-lift p-6 w-72 sm:w-80 card-hover">
+        <div class="bg-blue-light rounded-2xl h-44 flex items-center justify-center mb-5 overflow-hidden relative">
+          <!-- Decorative placeholder for hero video thumb -->
+          <div class="absolute inset-0 bg-gradient-to-br from-blue/20 to-navy/30"></div>
+          <div class="relative text-blue bg-white/90 w-14 h-14 rounded-full flex items-center justify-center shadow-lg">
+            <i class="fa-solid fa-play ml-1 text-lg"></i>
+          </div>
+          <div class="absolute bottom-3 left-3">
+            <span class="badge bg-navy text-white text-xs"><i class="fa-brands fa-tiktok"></i> Latest Drop</span>
+          </div>
+        </div>
+        <p class="font-display font-700 text-navy text-base leading-snug mb-1">"Things nobody tells you about being a new dad"</p>
+        <p class="text-slate-soft text-sm">2.3M views · 4 days ago</p>
+      </div>
+
+      <!-- Floating mini card – top right -->
+      <div class="absolute top-4 -right-4 sm:-right-8 bg-amber text-white rounded-2xl px-4 py-3 shadow-card z-20 rotate-3 card-hover">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-heart text-sm"></i>
+          <span class="font-display font-700 text-sm">128K Likes</span>
+        </div>
+      </div>
+
+      <!-- Floating mini card – bottom left -->
+      <div class="absolute -bottom-4 -left-4 sm:-left-8 bg-white rounded-2xl px-4 py-3 shadow-lift z-20 -rotate-2 card-hover">
+        <div class="flex items-center gap-2 text-navy">
+          <span class="text-lg">👶</span>
+          <div>
+            <div class="font-display font-700 text-sm">Dad Tips</div>
+            <div class="text-slate-soft text-xs">Updated weekly</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Floating social pill -->
+      <div class="absolute top-1/2 -translate-y-1/2 -right-6 sm:-right-12 bg-black text-white rounded-2xl px-4 py-2.5 shadow-card z-20 rotate-6 card-hover hidden sm:flex items-center gap-2">
+        <i class="fa-brands fa-tiktok text-xs"></i>
+        <span class="font-semibold text-xs">@heymoderndad</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Wave divider -->
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 64" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" class="w-full h-10 sm:h-16">
+      <path d="M0 64L60 53.3C120 43 240 21 360 21.3C480 21 600 43 720 48C840 53 960 43 1080 37.3C1200 32 1320 32 1380 32L1440 32V64H0Z" fill="#f1f5f9" fill-opacity="0.4"/>
+      <path d="M0 64L60 58.7C120 53 240 43 360 42.7C480 43 600 53 720 56C840 59 960 55 1080 50.7C1200 47 1320 43 1380 41.3L1440 40V64H0Z" fill="white" fill-opacity="0.6"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     ABOUT SECTION
+════════════════════════════════════════════ -->
+<section id="about" class="py-20 sm:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+      <!-- Visual side -->
+      <div class="reveal order-2 md:order-1">
+        <div class="relative">
+          <!-- Avatar placeholder -->
+          <div class="bg-gradient-to-br from-blue/20 to-amber/20 rounded-3xl aspect-square max-w-sm mx-auto flex items-center justify-center shadow-card relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-blue/10 via-transparent to-amber/10"></div>
+            <span class="text-9xl select-none">🧢</span>
+            <!-- Decor ring -->
+            <div class="absolute -top-4 -right-4 w-24 h-24 border-4 border-blue/30 rounded-full"></div>
+            <div class="absolute -bottom-6 -left-6 w-32 h-32 border-4 border-amber/30 rounded-full"></div>
+          </div>
+
+          <!-- Floating achievement chips -->
+          <div class="absolute top-6 -right-4 bg-white rounded-2xl shadow-lift px-4 py-3 flex items-center gap-2 card-hover">
+            <span class="text-xl">🏆</span>
+            <div>
+              <div class="font-display font-700 text-navy text-xs">Top Creator</div>
+              <div class="text-slate-soft text-xs">2023 & 2024</div>
+            </div>
+          </div>
+          <div class="absolute bottom-6 -left-4 bg-navy text-white rounded-2xl shadow-lift px-4 py-3 flex items-center gap-2 card-hover">
+            <span class="text-xl">📱</span>
+            <div>
+              <div class="font-display font-700 text-xs">Viral Content</div>
+              <div class="text-blue-light text-xs text-xs">300+ posts made</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text side -->
+      <div class="reveal reveal-delay-1 order-1 md:order-2">
+        <div class="section-tag">
+          <span class="text-blue text-sm font-semibold tracking-widest uppercase">The Story</span>
+        </div>
+
+        <h2 class="font-display text-4xl sm:text-5xl font-700 text-navy leading-tight mb-6">
+          Just a dad figuring it<br/><span class="text-blue">out — one post at a time.</span>
+        </h2>
+
+        <p class="text-slate-soft leading-relaxed mb-5">
+          Hey Modern Dad started as a simple idea: what if dads talked honestly about the chaos, joy, and total confusion that comes with raising kids in 2024? No highlight reel. No advice from someone who has it all together. Just raw, relatable content from a dad in the trenches.
+        </p>
+        <p class="text-slate-soft leading-relaxed mb-8">
+          Our mission is simple — <strong class="text-navy">helping dads navigate parenting with humor and honesty.</strong> Whether you're a brand-new dad panicking at 3am, or a seasoned pro who still feels like he's winging it (spoiler: we all are), this is your corner of the internet.
+        </p>
+
+        <!-- Values pills -->
+        <div class="flex flex-wrap gap-3 mb-8">
+          <span class="badge bg-blue-light text-blue">🤝 No Judgment</span>
+          <span class="badge bg-amber-light text-amber-600">😂 Real Humor</span>
+          <span class="badge bg-green-50 text-green-700">💪 Dad Strong</span>
+          <span class="badge bg-slate-100 text-slate-dark">📖 Honest Advice</span>
+        </div>
+
+        <a href="#videos" class="inline-flex items-center gap-2 text-blue font-semibold hover:gap-4 transition-all duration-200">
+          See the videos <i class="fa-solid fa-arrow-right text-sm"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FEATURED VIDEOS
+════════════════════════════════════════════ -->
+<section id="videos" class="py-20 sm:py-28 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+    <!-- Header -->
+    <div class="text-center mb-14 reveal">
+      <div class="section-tag justify-center">
+        <span class="text-blue text-sm font-semibold tracking-widest uppercase">Featured Videos</span>
+      </div>
+      <h2 class="font-display text-4xl sm:text-5xl font-700 text-navy leading-tight mt-2">
+        Content that hits different
+      </h2>
+      <p class="text-slate-soft mt-4 max-w-xl mx-auto">Real moments, real laughs, real advice. Here's what the community can't stop watching.</p>
+    </div>
+
+    <!-- Video grid (portrait TikTok style) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+      <!-- Video card template — repeated 3× -->
+      <!-- Card 1 -->
+      <div class="reveal reveal-delay-1 card-hover bg-white rounded-3xl overflow-hidden shadow-card">
+        <div class="video-wrapper">
+          <!-- Replace src with an actual TikTok/YouTube embed URL -->
+          <iframe
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+            title="Hey Modern Dad Video 1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-blue-light text-blue text-xs">Viral</span>
+            <span class="text-slate-soft text-xs">4.2M views</span>
+          </div>
+          <h3 class="font-display font-700 text-navy text-base leading-snug">"First day as a dad — what I actually felt"</h3>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="reveal reveal-delay-2 card-hover bg-white rounded-3xl overflow-hidden shadow-card">
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/9bZkp7q19f0?rel=0&modestbranding=1"
+            title="Hey Modern Dad Video 2"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-amber-light text-amber-600 text-xs">Trending</span>
+            <span class="text-slate-soft text-xs">2.8M views</span>
+          </div>
+          <h3 class="font-display font-700 text-navy text-base leading-snug">"Things nobody tells new dads (but should)"</h3>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="reveal reveal-delay-3 card-hover bg-white rounded-3xl overflow-hidden shadow-card sm:col-span-2 lg:col-span-1">
+        <div class="video-wrapper">
+          <iframe
+            src="https://www.youtube.com/embed/6_b7RDuLwcI?rel=0&modestbranding=1"
+            title="Hey Modern Dad Video 3"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="p-5">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-green-50 text-green-700 text-xs">Tips</span>
+            <span class="text-slate-soft text-xs">1.5M views</span>
+          </div>
+          <h3 class="font-display font-700 text-navy text-base leading-snug">"How to make bath time not a battle"</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center reveal">
+      <a href="https://www.tiktok.com/@heymoderndad" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2.5 bg-navy text-cream font-semibold px-8 py-4 rounded-2xl hover:bg-blue transition-colors duration-200 shadow-card">
+        <i class="fa-brands fa-tiktok"></i>
+        Watch All Videos on TikTok
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     PARENTING TIPS SECTION
+════════════════════════════════════════════ -->
+<section id="tips" class="py-20 sm:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+    <!-- Header -->
+    <div class="mb-14 reveal">
+      <div class="section-tag">
+        <span class="text-blue text-sm font-semibold tracking-widest uppercase">Dad Tips</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <h2 class="font-display text-4xl sm:text-5xl font-700 text-navy leading-tight max-w-lg">
+          Quick wins for every dad
+        </h2>
+        <p class="text-slate-soft max-w-xs">Practical, proven advice from a dad who's been there (and survived).</p>
+      </div>
+    </div>
+
+    <!-- Tips grid -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Tip Card component -->
+      <div class="reveal reveal-delay-1 card-hover bg-cream rounded-3xl p-7 border border-slate-100">
+        <div class="w-12 h-12 bg-blue-light rounded-2xl flex items-center justify-center text-blue text-xl mb-5">
+          🌙
+        </div>
+        <h3 class="font-display font-700 text-navy text-xl mb-2">Sleep Training Sanity</h3>
+        <p class="text-slate-soft text-sm leading-relaxed">Consistency beats perfection every time. Pick a method, stick with it for two weeks, and remember — this phase ends. You'll sleep again.</p>
+        <div class="mt-5 pt-5 border-t border-slate-200 flex items-center gap-2 text-blue text-sm font-semibold cursor-pointer hover:gap-4 transition-all">
+          Read more <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 card-hover bg-navy text-cream rounded-3xl p-7">
+        <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl mb-5">
+          🎯
+        </div>
+        <h3 class="font-display font-700 text-xl mb-2">Screen Time Balance</h3>
+        <p class="text-blue-light/80 text-sm leading-relaxed">The goal isn't zero screens — it's intentional screens. Watch with them, ask questions, and make it a shared experience when you can.</p>
+        <div class="mt-5 pt-5 border-t border-white/10 flex items-center gap-2 text-blue-light text-sm font-semibold cursor-pointer hover:gap-4 transition-all">
+          Read more <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-3 card-hover bg-amber-light rounded-3xl p-7 border border-amber/20">
+        <div class="w-12 h-12 bg-amber/20 rounded-2xl flex items-center justify-center text-2xl mb-5">
+          💬
+        </div>
+        <h3 class="font-display font-700 text-navy text-xl mb-2">Talk Early, Talk Often</h3>
+        <p class="text-slate-soft text-sm leading-relaxed">Narrate your day out loud — even to a newborn. Language development starts way earlier than most people think.</p>
+        <div class="mt-5 pt-5 border-t border-amber/30 flex items-center gap-2 text-amber-600 text-sm font-semibold cursor-pointer hover:gap-4 transition-all">
+          Read more <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-1 card-hover bg-cream rounded-3xl p-7 border border-slate-100">
+        <div class="w-12 h-12 bg-green-50 rounded-2xl flex items-center justify-center text-2xl mb-5">
+          🤸
+        </div>
+        <h3 class="font-display font-700 text-navy text-xl mb-2">Active Play Daily</h3>
+        <p class="text-slate-soft text-sm leading-relaxed">20 minutes of rough-and-tumble play a day does more for behavior than any parenting book. Kids need to move their bodies — and so do you.</p>
+        <div class="mt-5 pt-5 border-t border-slate-200 flex items-center gap-2 text-blue text-sm font-semibold cursor-pointer hover:gap-4 transition-all">
+          Read more <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 card-hover bg-cream rounded-3xl p-7 border border-slate-100">
+        <div class="w-12 h-12 bg-purple-50 rounded-2xl flex items-center justify-center text-2xl mb-5">
+          🧘
+        </div>
+        <h3 class="font-display font-700 text-navy text-xl mb-2">Dad Self-Care Isn't Selfish</h3>
+        <p class="text-slate-soft text-sm leading-relaxed">You can't pour from an empty cup. Ten minutes of something just for you each day is a parenting investment, not a luxury.</p>
+        <div class="mt-5 pt-5 border-t border-slate-200 flex items-center gap-2 text-blue text-sm font-semibold cursor-pointer hover:gap-4 transition-all">
+          Read more <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-3 card-hover bg-cream rounded-3xl p-7 border border-slate-100">
+        <div class="w-12 h-12 bg-red-50 rounded-2xl flex items-center justify-center text-2xl mb-5">
+          ❤️
+        </div>
+        <h3 class="font-display font-700 text-navy text-xl mb-2">Repair After Conflict</h3>
+        <p class="text-slate-soft text-sm leading-relaxed">Lost your cool? That's okay — it's human. What matters is the repair: apologies, connection, and showing kids that relationships can bounce back.</p>
+        <div class="mt-5 pt-5 border-t border-slate-200 flex items-center gap-2 text-blue text-sm font-semibold cursor-pointer hover:gap-4 transition-all">
+          Read more <i class="fa-solid fa-arrow-right text-xs"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     COMMUNITY SECTION
+════════════════════════════════════════════ -->
+<section id="community" class="py-20 sm:py-28 bg-navy relative overflow-hidden grain">
+
+  <!-- Background decorations -->
+  <div class="absolute top-0 right-0 w-80 h-80 bg-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-amber/15 rounded-full blur-2xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+
+      <!-- Left: socials -->
+      <div class="reveal">
+        <div class="section-tag">
+          <span class="text-blue-mid text-sm font-semibold tracking-widest uppercase">Join the Crew</span>
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl font-700 text-white leading-tight mb-6">
+          500,000+ dads<br/>can't be wrong.
+        </h2>
+        <p class="text-slate-400 leading-relaxed mb-10 max-w-md">
+          Follow along for daily content, behind-the-scenes moments, and a community of dads who get it. No spam. Just vibes.
+        </p>
+
+        <!-- Social platform cards -->
+        <div class="flex flex-col gap-4">
+
+          <a href="https://www.tiktok.com/@heymoderndad" target="_blank" rel="noopener"
+             class="flex items-center gap-4 bg-white/8 hover:bg-white/15 border border-white/10 rounded-2xl p-4 transition-all duration-200 group">
+            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-brands fa-tiktok text-white text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-display font-700 text-white text-sm">TikTok</div>
+              <div class="text-slate-400 text-xs">@heymoderndad · 500K followers</div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all text-sm"></i>
+          </a>
+
+          <a href="https://www.instagram.com/heymoderndad" target="_blank" rel="noopener"
+             class="flex items-center gap-4 bg-white/8 hover:bg-white/15 border border-white/10 rounded-2xl p-4 transition-all duration-200 group">
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
+                 style="background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)">
+              <i class="fa-brands fa-instagram text-white text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-display font-700 text-white text-sm">Instagram</div>
+              <div class="text-slate-400 text-xs">@heymoderndad · 120K followers</div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all text-sm"></i>
+          </a>
+
+          <a href="https://www.youtube.com/@heymoderndad" target="_blank" rel="noopener"
+             class="flex items-center gap-4 bg-white/8 hover:bg-white/15 border border-white/10 rounded-2xl p-4 transition-all duration-200 group">
+            <div class="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center flex-shrink-0">
+              <i class="fa-brands fa-youtube text-white text-lg"></i>
+            </div>
+            <div class="flex-1">
+              <div class="font-display font-700 text-white text-sm">YouTube</div>
+              <div class="text-slate-400 text-xs">Hey Modern Dad · 45K subscribers</div>
+            </div>
+            <i class="fa-solid fa-arrow-right text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all text-sm"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: newsletter -->
+      <div class="reveal reveal-delay-2">
+        <div class="bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-10 backdrop-blur-sm">
+          <div class="w-14 h-14 bg-blue/20 rounded-2xl flex items-center justify-center text-2xl mb-6">
+            📬
+          </div>
+          <h3 class="font-display font-700 text-white text-3xl mb-2">Dad Dispatch</h3>
+          <p class="text-slate-400 text-sm leading-relaxed mb-8">
+            Weekly newsletter dropping every Sunday. Tips, stories, and real talk — straight to your inbox. Join 30,000+ subscribers.
+          </p>
+
+          <!-- Form -->
+          <div id="newsletter-form">
+            <div class="flex flex-col gap-3">
+              <input type="text" id="first-name" placeholder="First name"
+                     class="email-input w-full bg-white/10 border border-white/15 text-white placeholder-slate-500 rounded-xl px-4 py-3.5 text-sm transition-all" />
+              <input type="email" id="email-input" placeholder="Your email address"
+                     class="email-input w-full bg-white/10 border border-white/15 text-white placeholder-slate-500 rounded-xl px-4 py-3.5 text-sm transition-all" />
+              <button onclick="handleSubscribe()"
+                      class="w-full bg-blue text-white font-semibold py-3.5 rounded-xl hover:bg-blue-mid transition-colors duration-200 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane text-sm"></i>
+                Subscribe — It's Free
+              </button>
+            </div>
+            <p class="text-slate-500 text-xs mt-4 text-center">No spam. Unsubscribe anytime. We respect your inbox.</p>
+          </div>
+
+          <!-- Success message (hidden by default) -->
+          <div id="success-msg" class="hidden text-center py-6">
+            <div class="text-4xl mb-3">🎉</div>
+            <h4 class="font-display font-700 text-white text-lg mb-1">You're in!</h4>
+            <p class="text-slate-400 text-sm">Check your inbox for a welcome email from Hey Modern Dad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     MERCH / RESOURCES SECTION
+════════════════════════════════════════════ -->
+<section id="merch" class="py-20 sm:py-28 bg-cream">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8">
+
+    <div class="text-center mb-14 reveal">
+      <div class="section-tag justify-center">
+        <span class="text-blue text-sm font-semibold tracking-widest uppercase">Shop & Resources</span>
+      </div>
+      <h2 class="font-display text-4xl sm:text-5xl font-700 text-navy leading-tight mt-2">
+        Gear up, Dad
+      </h2>
+      <p class="text-slate-soft mt-4 max-w-lg mx-auto">
+        Coming soon: guides, merch, and tools curated by a dad who's actually used them. Drop your email above to get early access.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Product placeholder cards -->
+      <div class="reveal reveal-delay-1 card-hover bg-white rounded-3xl overflow-hidden shadow-card group cursor-pointer">
+        <div class="h-44 bg-gradient-to-br from-blue/15 to-blue/5 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-300">📘</span>
+          <div class="absolute top-3 right-3">
+            <span class="badge bg-navy text-white text-xs">Coming Soon</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-700 text-navy text-base mb-1">The New Dad Playbook</h3>
+          <p class="text-slate-soft text-xs leading-relaxed">A no-BS digital guide to your first year of fatherhood.</p>
+          <div class="mt-4 font-display font-700 text-blue text-sm">Notify Me →</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-2 card-hover bg-white rounded-3xl overflow-hidden shadow-card group cursor-pointer">
+        <div class="h-44 bg-gradient-to-br from-amber/20 to-amber/5 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-300">👕</span>
+          <div class="absolute top-3 right-3">
+            <span class="badge bg-amber text-white text-xs">Merch</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-700 text-navy text-base mb-1">HMD Signature Tee</h3>
+          <p class="text-slate-soft text-xs leading-relaxed">Wear your dad identity proudly. Ultra-soft, unisex fit.</p>
+          <div class="mt-4 font-display font-700 text-amber-600 text-sm">Notify Me →</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-3 card-hover bg-white rounded-3xl overflow-hidden shadow-card group cursor-pointer">
+        <div class="h-44 bg-gradient-to-br from-green-100 to-green-50 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-300">🎧</span>
+          <div class="absolute top-3 right-3">
+            <span class="badge bg-green-600 text-white text-xs">Podcast</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-700 text-navy text-base mb-1">Modern Dad Podcast</h3>
+          <p class="text-slate-soft text-xs leading-relaxed">Deep dives into real parenting topics with expert guests.</p>
+          <div class="mt-4 font-display font-700 text-green-700 text-sm">Notify Me →</div>
+        </div>
+      </div>
+
+      <div class="reveal reveal-delay-4 card-hover bg-white rounded-3xl overflow-hidden shadow-card group cursor-pointer">
+        <div class="h-44 bg-gradient-to-br from-purple-100 to-purple-50 flex items-center justify-center relative overflow-hidden">
+          <span class="text-5xl group-hover:scale-110 transition-transform duration-300">🤝</span>
+          <div class="absolute top-3 right-3">
+            <span class="badge bg-purple-600 text-white text-xs">Community</span>
+          </div>
+        </div>
+        <div class="p-5">
+          <h3 class="font-display font-700 text-navy text-base mb-1">Dad Circle (Private)</h3>
+          <p class="text-slate-soft text-xs leading-relaxed">A members-only space for real talk, support, and advice.</p>
+          <div class="mt-4 font-display font-700 text-purple-700 text-sm">Notify Me →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════ -->
+<footer class="bg-navy text-slate-400">
+
+  <!-- Footer top -->
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+    <!-- Brand column -->
+    <div class="sm:col-span-2 lg:col-span-1">
+      <div class="flex items-center gap-2 mb-4">
+        <div class="w-9 h-9 bg-blue rounded-xl flex items-center justify-center text-white text-sm font-display font-800">HMD</div>
+        <span class="font-display font-700 text-white text-lg">Hey Modern Dad</span>
+      </div>
+      <p class="text-sm leading-relaxed max-w-xs mb-5">Real talk. Real parenting. Real dad life. No filters, no judgment — just honest content for the modern father.</p>
+      <!-- Social icons row -->
+      <div class="flex items-center gap-3">
+        <a href="https://www.tiktok.com/@heymoderndad" target="_blank" rel="noopener"
+           class="w-9 h-9 bg-white/8 hover:bg-blue rounded-xl flex items-center justify-center transition-colors" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok text-sm text-white"></i>
+        </a>
+        <a href="https://www.instagram.com/heymoderndad" target="_blank" rel="noopener"
+           class="w-9 h-9 bg-white/8 hover:bg-blue rounded-xl flex items-center justify-center transition-colors" aria-label="Instagram">
+          <i class="fa-brands fa-instagram text-sm text-white"></i>
+        </a>
+        <a href="https://www.youtube.com/@heymoderndad" target="_blank" rel="noopener"
+           class="w-9 h-9 bg-white/8 hover:bg-blue rounded-xl flex items-center justify-center transition-colors" aria-label="YouTube">
+          <i class="fa-brands fa-youtube text-sm text-white"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h4 class="font-display font-700 text-white text-sm mb-4 tracking-wide">Explore</h4>
+      <ul class="flex flex-col gap-2.5 text-sm">
+        <li><a href="#about"     class="hover:text-white transition-colors">About</a></li>
+        <li><a href="#videos"    class="hover:text-white transition-colors">Videos</a></li>
+        <li><a href="#tips"      class="hover:text-white transition-colors">Parenting Tips</a></li>
+        <li><a href="#community" class="hover:text-white transition-colors">Community</a></li>
+        <li><a href="#merch"     class="hover:text-white transition-colors">Shop</a></li>
+      </ul>
+    </div>
+
+    <!-- Resources -->
+    <div>
+      <h4 class="font-display font-700 text-white text-sm mb-4 tracking-wide">Resources</h4>
+      <ul class="flex flex-col gap-2.5 text-sm">
+        <li><a href="#" class="hover:text-white transition-colors">New Dad Guide</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Podcast</a></li>
+        <li><a href="#community" class="hover:text-white transition-colors">Newsletter</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Partner With Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <h4 class="font-display font-700 text-white text-sm mb-4 tracking-wide">Get in Touch</h4>
+      <ul class="flex flex-col gap-2.5 text-sm">
+        <li><a href="mailto:hello@heymoderndad.com" class="hover:text-white transition-colors">hello@heymoderndad.com</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Brand Partnerships</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Terms of Use</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer bottom bar -->
+  <div class="border-t border-white/8">
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <span>© 2025 Hey Modern Dad. All rights reserved.</span>
+      <span>Made with ❤️ for every dad out there</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+  /* ── 1. Hamburger menu toggle ── */
+  const hamburger    = document.getElementById('hamburger');
+  const mobileMenu   = document.getElementById('mobile-menu');
+  const mobileLinks  = document.querySelectorAll('.mobile-link');
+  const hamBars      = document.querySelectorAll('.ham-bar');
+
+  let menuOpen = false;
+
+  hamburger.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('open', menuOpen);
+
+    // Animate hamburger → X
+    if (menuOpen) {
+      hamBars[0].style.transform = 'translateY(8px) rotate(45deg)';
+      hamBars[1].style.opacity   = '0';
+      hamBars[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      hamBars[2].style.width     = '24px';
+    } else {
+      hamBars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; b.style.width = ''; });
+    }
+  });
+
+  // Close menu on link click
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu.classList.remove('open');
+      hamBars.forEach(b => { b.style.transform = ''; b.style.opacity = ''; b.style.width = ''; });
+    });
+  });
+
+  /* ── 2. Scroll-reveal (IntersectionObserver) ── */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target); // fire once
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  /* ── 3. Sticky nav shadow on scroll ── */
+  const navbar = document.getElementById('navbar');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 24) {
+      navbar.classList.add('shadow-card');
+    } else {
+      navbar.classList.remove('shadow-card');
+    }
+  }, { passive: true });
+
+  /* ── 4. Newsletter subscribe handler ── */
+  function handleSubscribe() {
+    const name  = document.getElementById('first-name').value.trim();
+    const email = document.getElementById('email-input').value.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!name) {
+      shake(document.getElementById('first-name'));
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      shake(document.getElementById('email-input'));
+      return;
+    }
+
+    // Hide form, show success
+    document.getElementById('newsletter-form').classList.add('hidden');
+    document.getElementById('success-msg').classList.remove('hidden');
+  }
+
+  // Shake animation for invalid inputs
+  function shake(el) {
+    el.style.animation = 'none';
+    el.offsetHeight; // reflow
+    el.style.animation = 'shake 0.4s ease';
+    el.style.borderColor = '#ef4444';
+    setTimeout(() => { el.style.borderColor = ''; el.style.animation = ''; }, 1200);
+  }
+
+  /* ── 5. Smooth active nav link highlighting ── */
+  const sections   = document.querySelectorAll('section[id]');
+  const navLinks   = document.querySelectorAll('.nav-link');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute('href') === `#${id}`;
+          link.classList.toggle('text-blue', isActive);
+          link.classList.toggle('font-semibold', isActive);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+
+<!-- Shake keyframe -->
+<style>
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%       { transform: translateX(-6px); }
+    40%       { transform: translateX(6px); }
+    60%       { transform: translateX(-4px); }
+    80%       { transform: translateX(4px); }
+  }
+</style>
+
+</body>
+</html>

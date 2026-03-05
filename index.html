@@ -315,19 +315,33 @@
     <!-- Right: feature card stack -->
     <div class="relative flex justify-center">
 
-      <!-- Main card -->
+          <!-- Main card -->
       <div class="relative z-10 bg-white rounded-3xl shadow-lift p-6 w-72 sm:w-80 card-hover">
         <div class="bg-blue-light rounded-2xl h-44 flex items-center justify-center mb-5 overflow-hidden relative">
-          <!-- Decorative placeholder for hero video thumb -->
-          <div class="absolute inset-0 bg-gradient-to-br from-blue/20 to-navy/30"></div>
-          <div class="relative text-blue bg-white/90 w-14 h-14 rounded-full flex items-center justify-center shadow-lg">
+          <!-- TikTok embed -->
+          <iframe src="https://www.tiktok.com/embed/7612249345856998664" 
+                  class="absolute inset-0 w-full h-full rounded-2xl"
+                  frameborder="0" 
+                  allowfullscreen 
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+      
+          <!-- Play button overlay (optional) -->
+          <div class="relative text-blue bg-white/90 w-14 h-14 rounded-full flex items-center justify-center shadow-lg z-10">
             <i class="fa-solid fa-play ml-1 text-lg"></i>
           </div>
-          <div class="absolute bottom-3 left-3">
-            <span class="badge bg-navy text-white text-xs"><i class="fa-brands fa-tiktok"></i> Latest Drop</span>
+      
+          <!-- Badge -->
+          <div class="absolute bottom-3 left-3 z-10">
+            <span class="badge bg-navy text-white text-xs">
+              <i class="fa-brands fa-tiktok"></i> Latest Drop
+            </span>
           </div>
         </div>
-        <p class="font-display font-700 text-navy text-base leading-snug mb-1">"Things nobody tells you about being a new dad"</p>
+      
+        <p class="font-display font-700 text-navy text-base leading-snug mb-1">
+          "Things nobody tells you about being a new dad"
+        </p>
         <p class="text-slate-soft text-sm">2.3M views · 4 days ago</p>
       </div>
 
